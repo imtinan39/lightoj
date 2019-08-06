@@ -1,0 +1,29 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+
+{
+
+
+ std::cout << std::setprecision(10);
+    double area_ade,area_abc;
+
+    int testcase;
+    cin>>testcase;
+    double ab,ac,bc,rati,s,ad;
+     for(int i=0;i<testcase;i++)
+    {
+
+        cin>>ab>>ac>>bc>>rati;
+
+        s=(ab+ac+bc)/2;
+
+
+         area_abc =sqrt(s*(s-ab)*(s-ac)*(s-bc));
+
+         area_ade=(area_abc)/((1/rati)+1);
+         ad=(ab*sqrt(area_ade))/(sqrt(area_abc));
+         cout<<"Case"<<" "<<i+1<<":"<<" "<<ad<<endl;
+
+    }
+}
