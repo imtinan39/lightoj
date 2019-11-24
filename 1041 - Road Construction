@@ -1,0 +1,97 @@
+#include<bits/stdc++.h>
+using namespace std;
+map<string,string>mp;
+
+struct edge
+{
+    string p,k;
+    int d;
+};
+
+void makeset(string h)
+{
+    mp[h]=h;
+}
+
+string fin(string a)
+{
+    if(mp[a]==a)
+    {
+        return a;
+    }
+    else
+    {
+        mp[a]=fin(mp[a]);
+        return mp[a];
+    }
+}
+
+int uni(string a,string b)
+{
+    string u=fin(a);
+    string v=fin(b);
+
+    if(u==v)
+    {
+        return 0;
+    }
+    else
+    {
+        mp[u]=v;
+        return 1;
+    }
+}
+
+int main()
+{
+    int t;
+    cin>>t;
+
+    for(int m=0;m<t;m++)
+    {
+        int n,citi=0,cost=0;
+        cin>>n;
+        set<string>s;
+        struct edge edges[n];
+        for(int i=0;i<n;i++)
+        {
+            cin>>edges[i].p>>edges[i].k>>edges[i].d;
+            s.insert(edges[i].p);
+            s.insert(edges[i].k);
+        }
+
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<n-1;j++)
+            {
+                if(edges[j].d>edges[j+1].d)
+                {
+                    swap(edges[j],edges[j+1]);
+                }
+            }
+        }
+         for (std::set<string>::iterator it=s.begin(); it!=s.end(); ++it)
+         {
+             makeset(*it);
+
+         }
+         for(int i=0;i<n;i++)
+         {
+             if(uni(edges[i].p,edges[i].k)==1)
+             {
+                 cost=cost+edges[i].d;
+                 citi=citi+1;
+             }
+         }
+         if(citi!=s.size()-1)
+         {
+             cout<<"Case "<<m+1<<": "<<"Impossible"<<endl;
+         }
+         else
+         {
+             cout<<"Case "<<m+1<<": "<<cost<<endl;
+         }
+
+    }
+}
+
